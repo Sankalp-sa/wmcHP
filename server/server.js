@@ -3,6 +3,12 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import cors from 'cors';
 import path from "path";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 //route imports
 import userRoutes from './routes/userRoutes.js';
@@ -18,6 +24,7 @@ const app = express();
 // cors
 app.use(cors());
 app.use(express.json());
+
 app.use(express.static(path.join(__dirname, "../client/wmc/dist")))
 
 app.use('*', function(req,res){
