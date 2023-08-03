@@ -25,10 +25,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "../client/wmc/dist")))
+app.use(express.static(path.join(__dirname, "./client/wmc/dist")))
 
 app.use('*', function(req,res){
-    res.sendFile(path.join(__dirname,'../client/wmc/dist/index.html'))
+    res.sendFile(path.join(__dirname,'./client/wmc/dist/index.html'))
 })
     
 // routes
