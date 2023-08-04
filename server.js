@@ -2,9 +2,9 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import cors from 'cors';
-import path from "path";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+// import path from "path";
+// import { fileURLToPath } from 'url';
+// import { dirname } from 'path';
 //route imports
 import userRoutes from './routes/userRoutes.js';
 
@@ -20,14 +20,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
-app.use(express.static(path.join(__dirname, "./client/wmc/dist")))
+// app.use(express.static(path.join(__dirname, "./client/wmc/dist")))
 
-app.use('*', function(req,res){
-    res.sendFile(path.join(__dirname,'./client/wmc/dist/index.html'))
-})
+// app.use('*', function(req,res){
+//     res.sendFile(path.join(__dirname,'./client/wmc/dist/index.html'))
+// })
     
 // routes
 app.use('/api/v1/users',userRoutes);
