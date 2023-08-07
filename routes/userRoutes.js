@@ -1,5 +1,5 @@
 import express from 'express';
-import { addCommentController, addToFavoritesController, createCharacterController, createCoreController, createSpeciesController, createSpellsController, createWandController, createWoodController, deleteFromFavoritesController, getCharacter, getCommentController, getFavoriteCountController, getFavoritesController, getImageBack, getImageFront, getSingleCharacter, getSingleSpellsController, getSingleWandController, getSpeciesController, getSpellAudioController, getSpellsController, getWandImageController, getWandsController, loginController, registrationController, searchController } from '../controllers/userController.js';
+import { addCommentController, addToFavoritesController, createCharacterController, createCoreController, createSpeciesController, createSpellsController, createWandController, createWoodController, deleteFromFavoritesController, getCharacter, getCommentController, getFavoriteCountController, getFavoritesController, getImageBack, getImageFront, getSingleCharacter, getSingleSpeciesController, getSingleSpellsController, getSingleWandController, getSpeciesController, getSpellAudioController, getSpellsController, getWandImageController, getWandsController, loginController, registrationController, searchController } from '../controllers/userController.js';
 
 import ExpressFormidable from "express-formidable";
 import { requireSignIn } from '../Middleware.js/authMiddleware.js';
@@ -12,6 +12,9 @@ router.post('/createSpecies', createSpeciesController);
 
 // get Species
 router.get('/getSpecies', getSpeciesController);
+
+// get single species
+router.get('/getSpecies/:id', getSingleSpeciesController);
 
 // create user register || post
 router.post('/register', registrationController);
@@ -34,7 +37,7 @@ router.get('/spells', getSpellsController);
 // get single spell
 router.get('/singleSpell/:id', getSingleSpellsController);
     
-//Wand routes
+//Wand routes 
 
 // Create Wood
 router.post('/createWood', ExpressFormidable() ,createWoodController);
@@ -89,6 +92,8 @@ router.post('/addComment/:id', requireSignIn, addCommentController);
 
 // get Comment route
 router.get('/getComment/:id', getCommentController);
+
+
 
 // protected route
 router.get('/protected', requireSignIn, (req, res) => {

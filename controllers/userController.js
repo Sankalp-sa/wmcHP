@@ -161,6 +161,28 @@ export const getSpeciesController = async (req, res) => {
   }
 };
 
+// get single Species
+
+export const getSingleSpeciesController = async (req, res) => {
+
+  try{
+
+    const { id } = req.params;
+
+    const species = await SpeciesModel.findById(id);
+
+    res.status(200).send({
+      success: true,
+      message: "Species fetched successfully",
+      species,
+    });
+  }
+  catch(error){
+    console.log(error);
+    res.status(500).json({ message: "Error fetching species" });
+  }
+}
+
 // create spells controller
 
 export const createSpellsController = async (req, res) => {
