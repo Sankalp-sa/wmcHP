@@ -146,7 +146,14 @@ export const createSpeciesController = async (req, res) => {
 
 export const getSpeciesController = async (req, res) => {
   try {
-    const species = await SpeciesModel.find({});
+
+    const page = req.query.page || 1;
+    const pageSize = req.query.pageSize || 4;
+
+    const species = await SpeciesModel
+      .find({})
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
 
     console.log(species);
 
