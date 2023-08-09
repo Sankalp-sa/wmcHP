@@ -8,7 +8,7 @@ const spellSchema = new mongoose.Schema(
             data: Buffer,
             contentType: String
         },
-        image_url: { type: String, required: true },
+        image_url: { type: String },
         category: { type: String, required: true },
     }
 );

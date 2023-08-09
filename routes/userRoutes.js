@@ -4,7 +4,6 @@ import { addCommentController, addToFavoritesController, createCharacterControll
 import ExpressFormidable from "express-formidable";
 import { requireSignIn } from '../Middleware.js/authMiddleware.js';
 
-
 const router = express.Router();
 
 // create species
@@ -92,8 +91,6 @@ router.post('/addComment/:id', requireSignIn, addCommentController);
 
 // get Comment route
 router.get('/getComment/:id', getCommentController);
-
-
 
 // protected route
 router.get('/protected', requireSignIn, (req, res) => {

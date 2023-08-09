@@ -14,7 +14,34 @@ import newCharacterModel from "../models/newCharacterModel.js";
 
 export const registrationController = async (req, res) => {
   try {
+    
     const { name, email, password } = req.body;
+
+    // Check if email already exists
+
+    const users = await userModel.findOne({ email });
+
+    if (users) {
+      return res.status(200).send({
+        success: false,
+        error: "Email already exists",
+      });
+    }
+    else{
+      const newUser = await userModel({
+        name,
+        email,
+        password,
+      }).save();
+
+      res.status(201).send({
+        success: true,
+        message: "User created successfully",
+        data: newUser,
+      });
+    }
+
+
     if (!name || !email || !password) {
       return res.send({
         success: false,
@@ -32,8 +59,6 @@ export const registrationController = async (req, res) => {
         error: "User already exists",
       });
     }
-
-    // register new user
 
     // hash password
     const hashedPassword = await hashPassword(password);
@@ -194,14 +219,14 @@ export const getSingleSpeciesController = async (req, res) => {
 
 export const createSpellsController = async (req, res) => {
   try {
-    const { name, description, image_url, category } = req.fields;
+    const { name, description, category } = req.fields;
 
     const { audio } = req.files;
 
     const spell = new spellsModel({
       name,
       description,
-      image_url,
+      // image_url,
       category,
     });
 
@@ -269,13 +294,21 @@ export const getSpellAudioController = async (req, res) => {
 
 export const getSpellsController = async (req, res) => {
   try {
-    const spells = await spellsModel.find({}).select("-audio");
+
+    const page = req.query.page || 1;
+    const pageSize = req.query.pageSize || 4;
+
+    const spells = await spellsModel
+      .find({})
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
 
     res.status(200).send({
       success: true,
       message: "Spells fetched successfully",
       spells,
     });
+    
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Error fetching spells" });
@@ -372,7 +405,18 @@ export const createWandController = async (req, res) => {
 
 export const getWandsController = async (req, res) => {
   try {
-    const wands = await wandsModel.find({}).populate("wood").populate("core");
+
+    const page = req.query.page || 1;
+    const pageSize = req.query.pageSize || 4;
+
+    const wands = await wandsModel
+      .find({})
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .populate("wood")
+      .populate("core");
+
+    // const wands = await wandsModel.find({}).populate("wood").populate("core");
 
     res.status(200).send({
       success: true,
