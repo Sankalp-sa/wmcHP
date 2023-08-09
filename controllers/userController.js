@@ -19,27 +19,27 @@ export const registrationController = async (req, res) => {
 
     // Check if email already exists
 
-    const users = await userModel.findOne({ email });
+    // const users = await userModel.findOne({ email });
 
-    if (users) {
-      return res.status(200).send({
-        success: false,
-        error: "Email already exists",
-      });
-    }
-    else{
-      const newUser = await userModel({
-        name,
-        email,
-        password,
-      }).save();
+    // if (users) {
+    //   return res.status(200).send({
+    //     success: false,
+    //     error: "Email already exists",
+    //   });
+    // }
+    // else{
+    //   const newUser = await userModel({
+    //     name,
+    //     email,
+    //     password,
+    //   }).save();
 
-      res.status(201).send({
-        success: true,
-        message: "User created successfully",
-        data: newUser,
-      });
-    }
+    //   res.status(201).send({
+    //     success: true,
+    //     message: "User created successfully",
+    //     data: newUser,
+    //   });
+    // }
 
 
     if (!name || !email || !password) {
@@ -50,15 +50,15 @@ export const registrationController = async (req, res) => {
     }
 
     // check if user already exists
-    const user = await userModel.findOne({ email });
+    // const user = await userModel.findOne({ email });
 
     // existing user
-    if (user) {
-      return res.status(200).send({
-        success: false,
-        error: "User already exists",
-      });
-    }
+    // if (user) {
+    //   return res.status(200).send({
+    //     success: false,
+    //     error: "User already exists",
+    //   });
+    // }
 
     // hash password
     const hashedPassword = await hashPassword(password);
